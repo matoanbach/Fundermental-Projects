@@ -21,7 +21,8 @@ const App = () => {
 
   function nextPerson() {
     setIndex((prevValue) => {
-      let newIndex = (prevValue + 1) % people.length;
+      let newIndex = prevValue + 1;
+      newIndex = checkNumber(newIndex);
       return newIndex;
     });
   }
