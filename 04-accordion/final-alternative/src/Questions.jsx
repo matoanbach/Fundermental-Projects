@@ -1,6 +1,6 @@
 import SingleQuestion from './SingleQuestion';
 
-const Questions = ({ questions, activeId, toggleQuestion }) => {
+const Questions = ({questions, activeId, toggleQuestion }) => {
   return (
     <section className='container'>
       <h1>Questions</h1>
