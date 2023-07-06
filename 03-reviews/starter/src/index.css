@@ -349,8 +349,3 @@ main {
 .next-btn:hover {
   color: var(--primary-500);
 }
-
-
-.beer {
-  font-size: 25rem;
-}
