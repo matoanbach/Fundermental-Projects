@@ -1,20 +1,23 @@
-import React from 'react'
-import SingleQuestion from './SingleQuestion';
+import React from "react";
+import SingleQuestion from "./SingleQuestion";
 
-
-function Questions({questions, activeId, toggleQuestion}) {
+function Questions({ questions, activeId, toggleQuestion }) {
   return (
     <section className="container">
-        <h1>Questions</h1>
-        {
-            questions.map((question) => {
-                return (
-                    <SingleQuestion key={question.id} {...question} activeId={activeId} toggleQuestion={toggleQuestion}/>
-                );
-            })
-        }
+      <h1>Questions</h1>
+      {
+      questions.map((question) => {
+        return (
+          <SingleQuestion
+            key={question.id}
+            {...question}
+            activeId={activeId}
+            toggleQuestion={toggleQuestion}
+          />
+        );
+      })}
     </section>
   );
 }
 
-export default Questions
+export default Questions;

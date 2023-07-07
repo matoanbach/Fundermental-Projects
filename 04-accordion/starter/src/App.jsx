@@ -1,13 +1,12 @@
-import { useState } from "react";
-import data from "./data";
-import Questions from "./Questions";
+import { useState } from 'react';
+import data from './data';
+import Questions from './Questions';
 
 const App = () => {
   const [questions, setQuestions] = useState(data);
   const [activeId, setActiveId] = useState(null);
-
-  function toggleQuestion (id) {
-    const newActiveId = (id === activeId) ? null : id;
+  function toggleQuestion(id) {
+    const newActiveId = activeId === id ? null : id;
     setActiveId(newActiveId);
   }
   return (
