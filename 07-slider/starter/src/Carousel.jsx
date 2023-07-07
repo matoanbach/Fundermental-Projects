@@ -1,31 +1,34 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { shortList, list, longList } from "./data";
 import { FaQuoteRight } from "react-icons/fa";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
 function Carousel() {
-  const [people, setPeople] = useState(list);
-
+  const [people, setPeople] = useState(longList);
   const [currentPerson, setCurrentPerson] = useState(0);
 
-  function prevSlide() {
-    setCurrentPerson((oldPerson) => {
-      const result = (oldPerson - 1 + people.length) % people.length;
-      return result;
-    });
+  function prevPerson() {
+    // console.log(
+    //   currentPerson,
+    //   currentPerson - 1 + people.length,
+    //   (currentPerson - 1 + people.length) % people.length
+    // );
+    setCurrentPerson((currentPerson - 1 + people.length) % people.length);
   }
 
-  function nextSlide() {
-    setCurrentPerson((oldPerson) => {
-      const result = (oldPerson + 1) % people.length;
-      return result;
-    });
+  function nextPerson() {
+    // console.log(
+    //   currentPerson,
+    //   currentPerson + 1,
+    //   (currentPerson + 1) % people.length
+    // );
+    setCurrentPerson((currentPerson + 1) % people.length);
   }
 
   useEffect(() => {
     let sliderId = setInterval(() => {
-      nextSlide();
-    }, 2000);
+      nextPerson();
+    }, [2000]);
     return () => {
       clearInterval(sliderId);
     };
@@ -34,17 +37,31 @@ function Carousel() {
   return (
     <section className="slider-container">
       {people.map((person, personIndex) => {
-        const { id, image, name, title, quote } = person;
+        const { id, name, image, title, quote } = person;
         return (
           <article
             className="slide"
+            key={id}
             style={{
               transform: `translateX(${100 * (personIndex - currentPerson)}%)`,
               opacity: personIndex === currentPerson ? 1 : 0,
               visibility: personIndex === currentPerson ? "visible" : "hidden",
             }}
-            key={id}
           >
+            {/* 
+            personIndex   currentPerson (1)
+            0             -100
+            1             0
+            2             100
+            3             200
+            4             300
+            5             400
+            6             500
+            7             600
+             */}
+            {/* 
+             
+             */}
             <img src={image} alt={name} className="person-img" />
             <h5 className="name">{name}</h5>
             <p className="title">{title}</p>
@@ -53,11 +70,10 @@ function Carousel() {
           </article>
         );
       })}
-      <button type="button" className="prev" onClick={prevSlide}>
+      <button type="button" className="prev" onClick={() => prevPerson()}>
         <FiChevronLeft />
       </button>
-
-      <button type="button" className="next" onClick={nextSlide}>
+      <button type="button" className="next" onClick={() => nextPerson()}>
         <FiChevronRight />
       </button>
     </section>
