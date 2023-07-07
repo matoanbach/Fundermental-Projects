@@ -1,29 +1,30 @@
 import { useState } from "react";
-import Title from "./Title";
+import data from "./data";
 import Menu from "./Menu";
-import menu from "./data";
+import Title from "./Title";
 import Categories from "./Categories";
-const allCategories = ["all", ...new Set(menu.map((item) => item.category))];
 
 const App = () => {
-  const [menuItems, setMenuItems] = useState(menu);
-  const [categories, setCategories] = useState(allCategories);
-
-  function filterItems(category) {
-    if (category === 'all') {
-      setMenuItems(menu);
-      return;
-    }
-    const newItems = menu.filter((item) => item.category === category);
-    setMenuItems(newItems);
+  const [items, setItems] = useState(data);
+  const [activeCategory, setActiveCategory] = useState("all");
+  console.log(activeCategory);
+  function toggleCategory(category) {
+    setActiveCategory(category);
   }
+  const tempArray = new Set();
+  tempArray.add("all");
+  items.map((item) => {
+    tempArray.add(item.category);
+  });
+
+  const categories = Array.from(tempArray);
 
   return (
     <main>
       <section className="menu">
-        <Title text={"our menu"} />
-        <Categories categories={categories} filterItems={filterItems} />
-        <Menu items={menuItems} />
+        <Title />
+        <Categories categories={categories} toggleCategory={toggleCategory} />
+        <Menu items={items} activeCategory={activeCategory} />
       </section>
     </main>
   );
