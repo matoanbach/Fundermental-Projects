@@ -1,13 +1,12 @@
-import { useState } from 'react';
-import Form from './Form';
-import { nanoid } from 'nanoid';
-import Items from './Items';
-import { ToastContainer, toast } from 'react-toastify';
+import { useState } from "react";
+import Form from "./Form";
+import Items from "./Items";
+import { ToastContainer, toast } from "react-toastify";
 
 const getLocalStorage = () => {
-  let list = localStorage.getItem('list');
+  let list = localStorage.getItem("itemList");
   if (list) {
-    list = JSON.parse(localStorage.getItem('list'));
+    list = JSON.parse(localStorage.getItem("itemList"));
   } else {
     list = [];
   }
@@ -15,48 +14,48 @@ const getLocalStorage = () => {
 };
 
 const setLocalStorage = (items) => {
-  localStorage.setItem('list', JSON.stringify(items));
+  localStorage.setItem("itemList", JSON.stringify(items));
 };
-const defaultList = JSON.parse(localStorage.getItem('list') || '[]');
+
+const existingList = getLocalStorage();
+console.log(existingList);
+
 const App = () => {
-  const [items, setItems] = useState(defaultList);
+  const [items, setItems] = useState(existingList);
 
-  const addItem = (itemName) => {
-    const newItem = {
-      name: itemName,
-      completed: false,
-      id: nanoid(),
-    };
-    const newItems = [...items, newItem];
-    setItems(newItems);
+  function addItem(item) {
+    const newItems = [...items, item];
     setLocalStorage(newItems);
-    toast.success('item added to the list');
-  };
-
-  const removeItem = (itemId) => {
-    const newItems = items.filter((item) => item.id !== itemId);
     setItems(newItems);
-    setLocalStorage(newItems);
-    toast.success('item deleted');
-  };
+    toast.success("item added to the list");
+  }
 
-  const editItem = (itemId) => {
+  function editItem(id) {
     const newItems = items.map((item) => {
-      if (item.id === itemId) {
-        const newItem = { ...item, completed: !item.completed };
-        return newItem;
+      if (item.id === id) {
+        return { ...item, completed: !item.completed };
+      } else {
+        return item;
       }
-      return item;
     });
     setItems(newItems);
     setLocalStorage(newItems);
-  };
+  }
+
+  function removeItem(id) {
+    const newItems = items.filter((item) => {
+      return item.id !== id;
+    });
+    setItems(newItems);
+    setLocalStorage(newItems);
+  }
   return (
-    <section className='section-center'>
-      <ToastContainer position='top-center' />
+    <section className="section-center">
+      <ToastContainer />
       <Form addItem={addItem} />
-      <Items items={items} removeItem={removeItem} editItem={editItem} />
+      <Items items={items} editItem={editItem} removeItem={removeItem} />
     </section>
   );
 };
+
 export default App;
