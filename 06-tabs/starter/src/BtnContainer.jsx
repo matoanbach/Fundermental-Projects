@@ -1,16 +1,12 @@
-import React from "react";
-
-function BtnContainer({ jobs, currentItem, setCurrentItem }) {
+const BtnContainer = ({ jobs, currentIndex, setCurrentIndex }) => {
   return (
-    <div className="btn-container">
+    <div className='btn-container'>
       {jobs.map((item, index) => {
         return (
           <button
             key={item.id}
-            onClick={() => {
-              setCurrentItem(index);
-            }}
-            className={index === currentItem ? "job-btn active-btn" : "job-btn"}
+            onClick={() => setCurrentIndex(index)}
+            className={index === currentIndex ? 'job-btn active-btn' : 'job-btn'}
           >
             {item.company}
           </button>
@@ -18,6 +14,5 @@ function BtnContainer({ jobs, currentItem, setCurrentItem }) {
       })}
     </div>
   );
-}
-
+};
 export default BtnContainer;

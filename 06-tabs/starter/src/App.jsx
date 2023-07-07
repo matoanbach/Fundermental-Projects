@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import JobInfo from "./Jobinfo";
+import JobInfo from "./JobInfo";
 import BtnContainer from "./BtnContainer";
 
 const url = "https://course-api.com/react-tabs-project";
@@ -7,32 +7,40 @@ const url = "https://course-api.com/react-tabs-project";
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [jobs, setJobs] = useState([]);
-  const [currentItem, setCurrentItem] = useState(0);
-
-
-
-  const fetchJobs = async () => {
-    const response = await fetch(url);
-    const newJobs = await response.json();
-    setJobs(newJobs);
-    setIsLoading(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  
+  const fetchData = async () => {
+    setIsLoading(true);
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      setJobs(data);
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error)
+      setIsLoading(false);
+    }
+    return;
   };
+
   useEffect(() => {
-    fetchJobs();
+    fetchData();
   }, []);
+
   if (isLoading) {
     return (
-      <section className="jobs-center">
-        <div className="loading"></div>
-      </section>
+      <h1>Loading....</h1>
     );
   }
+
   return (
     <section className="jobs-center">
-      {/* button container */}
-      <BtnContainer jobs={jobs} setCurrentItem={setCurrentItem} currentItem={currentItem}/>
-      <JobInfo jobs={jobs} currentItem={currentItem}/>
-      {/* job info */}
+      <BtnContainer
+        jobs={jobs}
+        currentIndex={currentIndex}
+        setCurrentIndex={setCurrentIndex}
+      />
+      <JobInfo jobs={jobs} currentIndex={currentIndex} />
     </section>
   );
 };
