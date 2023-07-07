@@ -1,37 +1,45 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import data from "./data";
 import { nanoid } from "nanoid";
 
 const App = () => {
+  const [texts, setTexts] = useState([]);
   const [count, setCount] = useState(1);
-  const [text, setText] = useState([]);
+
   function handleSubmit(event) {
-    let amount = parseInt(count);
-    setText(data.slice(0, amount));
+    const newArray = data.slice(0, count);
+
+    setTexts(() =>
+      newArray.map((text) => {
+        return { id: nanoid(), text };
+      })
+    );
+
     event.preventDefault();
   }
+
   return (
-    <section className="section-center" onSubmit={handleSubmit}>
-      <h4>tired of boring lorem ipsum?</h4>
-      <form className="lorem-form">
-        <label htmlFor="amount"></label>
+    <section className="section-center">
+      <h4>text generator based on local data</h4>
+      <form className="lorem-form" onSubmit={handleSubmit}>
+        <label htmlFor="amount">paragraphs:</label>
         <input
           type="number"
           name="amount"
           id="amount"
           min="1"
-          step="1"
           max="8"
           value={count}
           onChange={(event) => setCount(event.target.value)}
         />
         <button className="btn" type="submit">
-          generate
+          Submit
         </button>
       </form>
       <article className="lorem-text">
-        {text.map((item, index) => {
-          return <p key={index}>{item}</p>;
+        {texts.map((item) => {
+          const { id, text } = item;
+          return <p key={id}>{text}</p>;
         })}
       </article>
     </section>
