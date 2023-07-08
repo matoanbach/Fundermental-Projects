@@ -6,5 +6,5 @@ const App = () => {
       <Navbar/>
     </main>
   );
-};
+}
 export default App;
