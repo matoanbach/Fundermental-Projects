@@ -2,11 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./index.css";
-import { AppProvider } from "./context";
+import AppContext from "./context";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <AppProvider>
+    <AppContext>
       <App />
-    </AppProvider>
+    </AppContext>
   </React.StrictMode>
 );

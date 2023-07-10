@@ -1,24 +1,24 @@
-import { useState, createContext, useContext } from "react";
 
-const AppContext = createContext();
-export const AppProvider = ({ children }) => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+import { useContext, createContext, useState } from "react";
+
+const MyApp = createContext();
+
+function AppContext({ children }) {
+  const [isSidebarOpen, setIsSidebarOpen] = useState();
   const [pageId, setPageId] = useState(null);
   const openSidebar = () => {
     setIsSidebarOpen(true);
-  };
+  }
 
   const closeSidebar = () => {
     setIsSidebarOpen(false);
-  };
+  }
+  const aString = "Hello from the globe";
+  return <MyApp.Provider value={{pageId, isSidebarOpen, openSidebar, closeSidebar, setPageId }}>{children}</MyApp.Provider>;
+}
 
-  return (
-    <AppContext.Provider value={{ isSidebarOpen, openSidebar, closeSidebar, pageId, setPageId }}>
-      {children}
-    </AppContext.Provider>
-  );
-};
+export default AppContext;
 
 export const useGlobalContext = () => {
-  return useContext(AppContext);
+  return useContext(MyApp);
 };

@@ -234,7 +234,7 @@ ul {
   height: 6rem;
   border: 5px solid var(--grey-400);
   border-radius: 50%;
-  border-top-color: var(--primary-500);
+  border-color: var(--primary-500);
   animation: spinner 0.6s linear infinite;
   margin: 0 auto;
 }
@@ -257,7 +257,7 @@ ul {
 PROJECT CSS 
 =============== 
 */
-body {
+body{
   background: var(--primary-500);
 }
 
@@ -267,14 +267,13 @@ Navbar
 =============== 
 */
 
-nav{
+nav {
   height: 5rem;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
-.nav-center{
+.nav-center {
   width: var(--fluid-width);
   max-width: var(--max-width);
   display: flex;
@@ -288,7 +287,6 @@ nav{
   letter-spacing: 3px;
   font-weight: 700;
 }
-
 .toggle-btn{
   width: 2rem;
   height: 2rem;
@@ -299,9 +297,8 @@ nav{
   transition: var(--transition);
   cursor: pointer;
 }
-
 .toggle-btn:hover{
-  transform: scale(1.05)
+  transform: scale(1.05);
 }
 
 /* 
@@ -309,31 +306,29 @@ nav{
 Hero
 =============== 
 */
-
-.hero-container{
+.hero-container {
   min-height: calc(100vh - 5rem);
   display: grid;
   place-items: center;
 }
-
-.hero-center{
+.hero-center {
   color: var(--white);
   width: var(--fluid-width);
   max-width: var(--max-width);
 }
 
-.hero-center h1{
+.hero-center h1 {
   font-size: clamp(3rem, 5vw, 5rem);
+  margin-bottom: 1rem;
   font-weight: 700;
   line-height: 1.25;
 }
-
-.hero-center p{
+.hero-center p {
   line-height: 1.5;
 }
 
 @media screen and (min-width: 992px) {
-  .hero-center{
+  .hero-center {
     text-align: center;
   }
   .hero-center p {
@@ -344,13 +339,11 @@ Hero
     display: none;
   }
 }
-
 /* 
 ============= 
 Sidebar
 =============== 
 */
-
 .sidebar{
   position: fixed;
   top: 0;
@@ -358,24 +351,21 @@ Sidebar
   width: 100%;
   height: 100%;
   background: var(--white);
-  /* toggle */
+  /* toggle  */
   opacity: 0;
   visibility: hidden;
 }
-
 /* toggle class */
 .show-sidebar{
   opacity: 1;
   visibility: visible;
+  transition: var(--transition);
 }
 
-.sidebar-container{
+.sidebar{
   padding: 4rem 2rem;
-  position: relative;
-  transition-property: opacity;
-  transition-duration: 1s;
+  position: absolute;
 }
-
 .close-btn{
   font-size: 2rem;
   background: transparent;
@@ -384,24 +374,19 @@ Sidebar
   position: absolute;
   top: 1rem;
   right: 1rem;
-  cursor: pointer;
 }
-
 .sidebar article{
   margin-bottom: 2rem;
 }
-
 .sidebar h4{
   margin-bottom: 1rem;
-  color: var(--primary-700);
+  color: var(--primary-500);
 }
-
 .sidebar-sublinks{
   display: grid;
-  grid-template-columns: 1fr, 1fr;
+  grid-template-columns: 1fr 1fr;
   row-gap: 0.5rem;
 }
-
 .sidebar-sublinks a {
   display: block;
   color: var(--grey-900);
@@ -410,13 +395,13 @@ Sidebar
   align-items: center;
   gap: 1rem;
 }
-
-sidebar-sublinks svg{
+.sidebar-sublinks svg {
   color: var(--grey-500);
 }
-
 @media screen and (min-width: 992px) {
-
+  .sidebar{
+    display: none;
+  }
 }
 
 /* 
@@ -428,7 +413,6 @@ Nav links
 .nav-links{
   display: none;
 }
-
 @media screen and (min-width: 992px) {
   .nav-links{
     display: flex;
@@ -439,17 +423,20 @@ Nav links
     align-self: stretch;
     display: grid;
     grid-template-columns: auto 1fr;
+    border: 2px solid green;
   }
-  .nav-link{
+  .nav-link {
     padding: 0 1rem;
     color: var(--white);
     background: transparent;
     border-color: transparent;
     font-size: 1.25rem;
+    text-transform: capitalize;
     letter-spacing: var(--letterSpacing);
     cursor: pointer;
   }
 }
+
 /* 
 ============= 
 Submenu
@@ -475,23 +462,22 @@ Submenu
     perspective: 1000px;
     visibility: hidden;
     opacity: 0;
-    transition: 0;
-    transition: transform 0.3s ease-in-out, opacity 0.2s ease-in-out;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
     z-index: -1;
   }
-  .show-submenu {
+  .show-submenu{
     visibility: visible;
     opacity: 1;
-    transform: rotateX(0deg) translateX(-50%);
+    transform: rotateX(0deg) translate(-50%);
     z-index: 10;
   }
   .submenu h5 {
     margin-bottom: 1rem;
     color: var(--primary-700);
   }
-  .submenu-links {
+  .submenu-links{
     display: grid;
-    row-gap: 0.5rem;
+    row-gap: 0.5;
   }
   .submenu-links a {
     display: block;
@@ -501,7 +487,7 @@ Submenu
     align-items: center;
     gap: 1rem;
   }
-  .submenu-links svg {
+  .submenu-links{
     color: var(--grey-500);
   }
 }

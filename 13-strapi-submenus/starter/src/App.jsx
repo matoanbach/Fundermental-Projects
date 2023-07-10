@@ -6,11 +6,14 @@ import Submenu from "./Submenu";
 
 const App = () => {
 
-  return <main>
-    <Navbar/>
-    <Hero/>
-    <Sidebar/>
-    <Submenu/>
-  </main>;
+
+  return (
+    <main>
+      <Navbar/>
+      <Hero/>
+      <Sidebar/>
+      <Submenu/>
+    </main>
+  );
 };
 export default App;

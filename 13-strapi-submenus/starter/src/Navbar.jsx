@@ -1,11 +1,11 @@
-import React from "react";
 import { FaBars } from "react-icons/fa";
 import { useGlobalContext } from "./context";
-import NavLinks from "./NavLinks";
+import Navlinks from "./Navlinks";
+
 function Navbar() {
   const { openSidebar, setPageId } = useGlobalContext();
-  function handleSubmenu(event) {
-    if(!event.target.classList.contains("nav-link")){
+  const handleSubmenu = (e) => {
+    if(!e.target.classList.contains("nav-link")){
       setPageId(null);
     }
   }
@@ -16,7 +16,7 @@ function Navbar() {
         <button className="toggle-btn" onClick={openSidebar}>
           <FaBars />
         </button>
-        <NavLinks />
+        <Navlinks/>
       </div>
     </nav>
   );

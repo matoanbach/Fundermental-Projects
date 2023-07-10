@@ -1,27 +1,21 @@
-import { useGlobalContext } from "./context";
 import sublinks from "./data";
+import { useGlobalContext } from "./context";
 import { useRef } from "react";
+
 function Submenu() {
   const { pageId, setPageId } = useGlobalContext();
   const currentPage = sublinks.find((item) => item.pageId === pageId);
-  const submenuContainer = useRef(null);
-  function handleMouseLeave(event) {
-    const submenu = submenuContainer.current;
-    const {left, right, bottom} = submenu.getBoundingClientRect();
-
+  const divRef = useRef(null);
+  function handleMove(event) {
+    const submenu = divRef.current.getBoundingClientRect();
     const { clientX, clientY } = event;
-
-    if(clientX < left - 1 || clientX > right - 1 || clientY > bottom - 1){
+    const {right, left, bottom} = submenu;
+    if(clientX < left + 1 || clientX > right - 1 || clientY > bottom - 1 ){
       setPageId(null);
     }
   }
-
   return (
-    <div
-      className={currentPage ? "submenu show-submenu" : "submenu"}
-      onMouseLeave={handleMouseLeave}
-      ref={submenuContainer}
-    >
+    <div className={currentPage ? "submenu show-submenu" : "submenu"} onMouseLeave={handleMove} ref={divRef}>
       <h5>{currentPage?.page}</h5>
       <div
         className="submenu-links"
@@ -29,6 +23,8 @@ function Submenu() {
           gridTemplateColumns:
             currentPage?.links?.length > 3 ? "1fr 1fr" : "1fr",
         }}
+
+        
       >
         {currentPage?.links?.map((link) => {
           const { id, url, label, icon } = link;
